@@ -1,6 +1,6 @@
 #Code Book of Data Columns
 
-This dataset includes mean summarizations of all mean and std observations from the [Smartphone Human Activity Recognition](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) dataset.  The mean of all observations was taken grouped by distinct subjects and activities. Otherwise, all data maintains the original units and meanings from the original data set.
+This dataset includes mean summarizations of all mean and std observations from the [Smartphone Human Activity Recognition](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) dataset.  The mean of all observations was taken grouped by distinct subjects and activities. All data maintains the original units and meanings from the original data set.
 
 Columns:
 
