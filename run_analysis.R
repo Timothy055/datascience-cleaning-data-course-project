@@ -1,10 +1,10 @@
 
-#Create the column headers for all the data we will read in.
+# Create the column headers for all the data we will read in.
 feature.col.names <- read.table("features.txt")[, 2]
 subject.col.names <- c("subject.id")
 activity.col.names <- c("activity")
 
-#Read in the training and test files.
+# Read in the training and test files.
 training.files <- list.files(path="train", pattern=".txt", all.files=TRUE, full.names=TRUE);
 test.files <- list.files(path="test", pattern=".txt", all.files=TRUE, full.names=TRUE);
 
@@ -24,10 +24,10 @@ read.data.files <- function(file.name) {
   }
 }
 
-#Read in all the training data files and combine into a single data.frame.
+# Read in all the training data files and combine into a single data.frame.
 training.data <- data.frame(lapply(training.files, read.data.files))
 
-#Read in all the test data files and combine into a single data.frame
+# Read in all the test data files and combine into a single data.frame
 test.data <- data.frame(lapply(test.files, read.data.files))
 
 # The combined data is an rbind of the training and test data.
@@ -35,12 +35,12 @@ test.data <- data.frame(lapply(test.files, read.data.files))
 # and are traversed in alphabetical order.
 combined.data <- rbind(training.data, test.data)
 
-#Convert activity.id to factor with labels
+# Convert activity.id to factor with labels
 activity.factors <- read.table("activity_labels.txt", col.names=c("id", "level"))
 combined.data$activity <- as.factor(combined.data$activity)
 levels(combined.data$activity) <- activity.factors$level
 
-#Select any columns with mean or std in their name, plus the subject and activity columns.
+# Select any columns with mean or std in their name, plus the subject and activity columns.
 selected.cols <- grepl("mean|std|subject|activity", names(combined.data))
 
 selected.data <- combined.data[, selected.cols]
