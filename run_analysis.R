@@ -1,6 +1,7 @@
-# This file reads the UCI Dataset from the working directory and produces
+# This file reads the UCI (Human Activity Recognition Using Smartphones) Dataset 
+# from the working directory and produces
 # a cleaned output file summarizing mean and std observations for unique 
-# subjects and activities.
+# subjects and activities pairs.
 
 #Note: check.names=FALSE is used to preserve the original column names from the raw dataset
 
@@ -16,8 +17,9 @@ training.files <- list.files(path="train", pattern=".txt", all.files=TRUE, full.
 test.files <- list.files(path="test", pattern=".txt", all.files=TRUE, full.names=TRUE);
 
 # This is a function which reads the data and applies the appropriate column names
-# based on the file name. For example a file with the word sujbect in it would be assumed
+# based on the file name. For example a file with the word subject in it would be assumed
 # to be the subject data file and it will be read in with the subject column names.
+# Similar is done for the X and y data.
 read.data.files <- function(file.name) {
   if (grepl("subject", file.name)) {
     print(paste("Reading", file.name))
@@ -39,7 +41,7 @@ test.data <- data.frame(lapply(test.files, read.data.files), check.names=FALSE)
 
 # The combined data is an rbind of the training and test data.
 # This assumes that both directories contain files with the same naming conventions
-# and are traversed in alphabetical order.
+# and are traversed in alphabetical order. (This is true of the original dataset.)
 combined.data <- rbind(training.data, test.data)
 
 # Convert activity.id to factor with labels
