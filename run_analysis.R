@@ -1,6 +1,13 @@
+# This file reads the UCI Dataset from the working directory and produces
+# a cleaned output file summarizing mean and std observations for unique 
+# subjects and activities.
+
+#Note: check.names=FALSE is used to preserve the original column names from the raw dataset
+
+library("reshape2")
 
 # Create the column headers for all the data we will read in.
-feature.col.names <- read.table("features.txt")[, 2]
+feature.col.names <- as.character(read.table("features.txt")[, 2])
 subject.col.names <- c("subject.id")
 activity.col.names <- c("activity")
 
@@ -17,7 +24,7 @@ read.data.files <- function(file.name) {
     subject.data <- read.table(file.name, header=FALSE, col.names=subject.col.names)
   } else if (grepl("X", file.name)) {
     print(paste("Reading", file.name))
-    X.data <- read.table(file.name, header=FALSE, col.names=feature.col.names)
+    X.data <- read.table(file.name, header=FALSE, col.names=feature.col.names, check.names=FALSE)
   } else if (grepl("y", file.name)) {
     print(paste("Reading", file.name))
     y.data <- read.table(file.name, header=FALSE, col.names=activity.col.names)
@@ -25,10 +32,10 @@ read.data.files <- function(file.name) {
 }
 
 # Read in all the training data files and combine into a single data.frame.
-training.data <- data.frame(lapply(training.files, read.data.files))
+training.data <- data.frame(lapply(training.files, read.data.files), check.names=FALSE)
 
 # Read in all the test data files and combine into a single data.frame
-test.data <- data.frame(lapply(test.files, read.data.files))
+test.data <- data.frame(lapply(test.files, read.data.files), check.names=FALSE)
 
 # The combined data is an rbind of the training and test data.
 # This assumes that both directories contain files with the same naming conventions
